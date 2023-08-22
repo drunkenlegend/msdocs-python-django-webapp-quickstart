@@ -53,11 +53,14 @@ jobs:
         with:
           name: python-app
           path: .
-          
-      - name: 'Deploy to Azure Web App'
+
+      - name: Log in to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_SERVICE_PRINCIPAL }}
+
+      - name: Deploy to App Service
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
           app-name: 'temp-ml'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9BA02ADE473C41998582C9A41520BDCF }}
